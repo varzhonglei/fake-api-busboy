@@ -3,7 +3,7 @@ const BusBoy = require('busboy');
 const fs = require('fs');
 
 // const NOT_FOUND = require('../constants/response-codes.js');
-const NOT_FOUND = 'NOT_FOUND'
+const NOT_FOUND = 404
 
 const fakeUploadRouter = express.Router();
 
@@ -13,7 +13,7 @@ fakeUploadRouter.post('/', (req, res) => {
   // anything with the files though.
   const busboy = new BusBoy({ headers: req.headers });
   busboy.on('finish', () => {
-    res.writeHead(200, { Connection: 'close' });
+    // res.writeHead(200, { Connection: 'close' });
     res.end();
   });
 
@@ -27,6 +27,7 @@ fakeUploadRouter.post('/', (req, res) => {
     // 开始解析文件流
     file.on('data', function(data) {
       console.log(`File [${fieldname}] got ${data.length} bytes`)
+      res.write(`${data.length} `)
     })
   
     // 解析文件结束
@@ -34,7 +35,6 @@ fakeUploadRouter.post('/', (req, res) => {
       console.log(`File [${fieldname}] Finished`)
     })
   })
-  
   req.pipe(busboy);
 });
 
