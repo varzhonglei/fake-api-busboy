@@ -13,12 +13,13 @@ fakeUploadRouter.post('/', (req, res) => {
   // anything with the files though.
   const busboy = new BusBoy({ headers: req.headers });
   busboy.on('finish', () => {
-    // res.writeHead(200, { Connection: 'close' });
+  
     res.end();
   });
 
   // 监听文件解析事件
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+    res.writeHead(200);
     console.log(`File [${fieldname}]: filename: ${filename}`)
   
     // 文件保存到特定路径
