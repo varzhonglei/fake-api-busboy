@@ -5,7 +5,7 @@ const app = express()
 
 
 app.use(function(req, res, next) {
-  console.log( ' receive request !!! ' )
+  console.log( ' ---receive request---' )
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
