@@ -61,12 +61,11 @@ fakeUploadRouter.post('/', (req, res) => {
   req.pipe(busboy);
 });
 
+
 fakeUploadRouter.post('/cancelUpload', ( req, res ) => {
   cancelUploadControll()
   res.end()
-} )
-
-
+})
 
 fakeUploadRouter.use('*', (req, res) => {
   res.sendStatus(NOT_FOUND);
