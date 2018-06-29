@@ -9,11 +9,11 @@ const NOT_FOUND = 404
 const fakeUploadRouter = express.Router()
 
 
-let transfer = ( str ) => {
+var transfer = ( str ) => {
     console.log( 'no res to receive' )
 }
 
-let transferToEnd = () => {}
+var transferToEnd = () => {}
 
 
 
@@ -33,6 +33,7 @@ fakeUploadRouter.post('/', (req, res) => {
   // anything with the files though.
   const busboy = new BusBoy({ headers: req.headers });
   busboy.on('finish', () => {
+    transferToEnd();
     res.end();
   });
 
@@ -52,14 +53,13 @@ fakeUploadRouter.post('/', (req, res) => {
     // 解析文件结束
     file.on('end', function() {
       console.log(`File [${fieldname}] Finished`)
-      transferToEnd()
     })
   })
   req.pipe(busboy);
 });
 
-// fakeUploadRouter.use('*', (req, res) => {
-//   res.sendStatus(NOT_FOUND);
-// });
+fakeUploadRouter.use('*', (req, res) => {
+  res.sendStatus(NOT_FOUND);
+});
 
 module.exports = fakeUploadRouter;
