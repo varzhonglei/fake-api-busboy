@@ -15,7 +15,7 @@ var transfer = ( str ) => {
 
 var transferToEnd = () => {}
 
-
+var cancelUploadControll = () => {}
 
 fakeUploadRouter.post('/progress', ( req, res ) => {
   res.write('0 ')
@@ -36,6 +36,9 @@ fakeUploadRouter.post('/', (req, res) => {
     transferToEnd();
     res.end();
   });
+  cancelUploadControll = ( res ) => {
+    res.end()
+  }
 
   // 监听文件解析事件
   busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
@@ -57,6 +60,13 @@ fakeUploadRouter.post('/', (req, res) => {
   })
   req.pipe(busboy);
 });
+
+fakeUploadRouter.get('/cancelUpload', ( req, res ) => {
+  cancelUploadControll()
+  res.end()
+} )
+
+
 
 fakeUploadRouter.use('*', (req, res) => {
   res.sendStatus(NOT_FOUND);
