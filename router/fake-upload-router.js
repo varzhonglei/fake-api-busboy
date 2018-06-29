@@ -62,9 +62,9 @@ fakeUploadRouter.post('/', (req, res) => {
 });
 
 
-fakeUploadRouter.post('/cancelUpload', ( req, res ) => {
+fakeUploadRouter.get('/cancelUpload', ( req, res ) => {
   cancelUploadControll()
-  res.end()
+  res.end('cancelSuccess')
 })
 
 fakeUploadRouter.use('*', (req, res) => {
