@@ -61,7 +61,7 @@ fakeUploadRouter.post('/', (req, res) => {
   req.pipe(busboy);
 });
 
-fakeUploadRouter.get('/cancelUpload', ( req, res ) => {
+fakeUploadRouter.post('/cancelUpload', ( req, res ) => {
   cancelUploadControll()
   res.end()
 } )
